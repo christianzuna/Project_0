@@ -35,6 +35,7 @@ public void show() throws IOException {
         System.out.println("Please enter a number");
         option = scanner.nextInt(); 
         // option = option1;  
+        
 
         switch(option) {
             case 1: 
@@ -79,6 +80,8 @@ public void show() throws IOException {
 
 
 //boiler plate code  = repeated code
+//code bloat = long code 
+//(big-O notation) look it up 
 
 /**
  * this method passes the text file name so it can read it and print it in the console
