@@ -20,15 +20,16 @@ public void show() throws IOException {
     // String fileName = "C:/Users/user/IdeaProjects/Revature/project0/app/src/main/resources/textFile.txt";
     String fileName = "app/src/main/resources/textFile.txt";
     Scanner scanner  = new Scanner(System.in); 
+    String lineBreak = "##################################################################";
 
-    System.out.println("##################################################################");
+    System.out.println(lineBreak);
     System.out.println("WELCOME TO THE COVID VACCINE CENTER!");
     System.out.println("1. To upload and see the list of names requesting a COVID vaccine ");
     System.out.println("2. See names of people who are eligible to get a COVID vaccine");
     System.out.println("3. See names of people in the waiting list for the vaccine");
     System.out.println("4. Export list of names to get COVID vaccine");
     System.out.println("5. Exit Menu");
-    System.out.println("##################################################################");
+    System.out.println(lineBreak);
 
     do {
         System.out.println("Please enter a number");
@@ -76,6 +77,9 @@ public void show() throws IOException {
     } while (!isOver);
 }
 
+
+//boiler plate code  = repeated code
+
 /**
  * this method passes the text file name so it can read it and print it in the console
  * @param fileName
@@ -87,8 +91,7 @@ public static void ReadingFile (String fileName) throws IOException {
         
     for(int i=0; i<arrLines.length; i++) { 
         System.out.println(arrLines[i]);
-    }     
-         
+    }             
 }
 
 /**
@@ -137,6 +140,8 @@ public static void noElegible (String fileName) throws IOException {
         if (value < 50) System.out.println(key + ":" + map.get(key));      
     }
 }
+
+// eliminate two for loops and use the first for loop; 
 
 }
 
