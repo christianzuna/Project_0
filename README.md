@@ -1,6 +1,6 @@
 # Covid vaccine center (Management System for Vaccines)
 
-Welcome to my vaccination center! Here you will be able to submit a list of names and ages from people who are interested in wanting to know whether they are available to receive a vaccination. 
+Welcome to my vaccination center! Here you will be able to submit a list of names and ages from people who are interested in wanting to know whether they are eligible to receive a vaccination. 
 
 ## Main Menu for the Covid Vaccine Center
 
