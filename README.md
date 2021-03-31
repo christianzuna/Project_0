@@ -1,4 +1,4 @@
-# Covid vaccine center (Management System for Vaccines)
+# Covid vaccine center
 
 Welcome to my vaccination center! Here you will be able to submit a list of names and ages from people who are interested in getting a COVID vaccine. In order to know whether they are eligible to receive a vaccination any time soon, they will have to navigate through one of option in the menu.  
 
