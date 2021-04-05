@@ -2,11 +2,15 @@ package project0;
 
 public class Patient {
 
+    private String ssn; 
     private String fname; 
+    private String lname;
     private int age;
 
-    public Patient(String fname, int age) {
+    public Patient(String ssn, String fname, String lname, int age) {
+        this.ssn = ssn; 
         this.fname = fname;
+        this.lname = lname; 
         this.age = age; 
     }
 
@@ -21,6 +25,26 @@ public class Patient {
     }
     public void setAge(int age) {
         this.age = age;
-    } 
+    }
 
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
+    }
+
+    @Override
+    public String toString() {
+        return fname + " " + lname + ", " + age + " -" + ssn.substring(0, 4) + "xx";
+    }
+
+    public String getSsn() {
+        return ssn;
+    }
+
+    public void setSsn(String ssn) {
+        this.ssn = ssn;
+    } 
 }

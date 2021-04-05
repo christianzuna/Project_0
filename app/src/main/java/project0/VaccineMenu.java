@@ -1,15 +1,22 @@
 package project0;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class VaccineMenu {
 
+    public Connection connection;
+    public String fileName = "app/src/main/resources/myfile.csv";
+
     public void show() throws IOException {
         boolean isOver = false;
         int option = 0;
-        String fileName = "app/src/main/resources/myfile.csv";
         Scanner scanner = new Scanner(System.in);
         String lineBreak = "##################################################################";
 
@@ -30,20 +37,20 @@ public class VaccineMenu {
             case 1:
                 System.out.println("");
                 System.out.println(lineBreak);
-                ReadingFile(fileName);
+                connectingDB(connection, fileName);
                 System.out.println(lineBreak);
 
                 break;
             case 2:
                 System.out.println("");
                 System.out.println(lineBreak);
-                elegibility(fileName);
+                // PatientDao.elegibility(fileName);
                 System.out.println(lineBreak);
                 break;
             case 3:
                 System.out.println("");
                 System.out.println(lineBreak);
-                noElegible(fileName);
+                // noElegible(fileName);
                 System.out.println(lineBreak);
                 break;
             case 4:
@@ -67,54 +74,39 @@ public class VaccineMenu {
         } while (!isOver);
     }
 
-    public void ReadingFile(String fileName) throws IOException {
-        ReadFile2 file = new ReadFile2(fileName);
-        ArrayList<String> arrLines = file.OpenFile();
+    public void connectingDB(Connection connection, String filename) throws IOException {
 
-        arrLines.forEach(e -> {
-            System.out.println(e);
-        });
-    }
+        String url = "jdbc:postgresql://localhost:5432/postgres";
+        String username = "postgres";
+        String password = "password";
 
-    public void elegibility(String fileName) throws IOException {
-        ReadFile2 file = new ReadFile2(fileName);
-        ArrayList<String> arrLines = file.OpenFile();
-        ArrayList<String> patientFname = new ArrayList<>(arrLines.size());
-        ArrayList<String> patientLname = new ArrayList<>(arrLines.size());
-        ArrayList<Integer> patientAge = new ArrayList<>(arrLines.size());
+        try {
+            ReadFile2 file = new ReadFile2(fileName);
+            ArrayList<String> arrLines = file.OpenFile();
+            connection = DriverManager.getConnection(url, username, password);
 
-        for (int i = 0; i < arrLines.size(); i++) {
-            String singleLine = arrLines.get(i);
-            String[] moreLines = singleLine.split(",");
+            for (int i = 0; i < arrLines.size(); i++) {
+                String singleLine = arrLines.get(i);
+                String[] moreLines = singleLine.split(",");
+                PreparedStatement pStatement = connection
+                        .prepareStatement("insert into patients(ssn, fname, lname, age) values (?, ?, ?, ?)");
 
-            patientFname.add(moreLines[0]);
-            patientLname.add(moreLines[1]);
-            patientAge.add(Integer.parseInt(moreLines[2]));
-
-            if (patientAge.get(i) > 50 || patientAge.get(i) == 50) {
-                System.out.println(patientFname.get(i) + " " + patientLname.get(i) + " " + patientAge.get(i));
+                Patient tempPatient = new Patient(moreLines[0], moreLines[1], moreLines[2],
+                        Integer.parseInt(moreLines[3]));
+                pStatement.setString(1, tempPatient.getSsn());
+                pStatement.setString(2, tempPatient.getFname());
+                pStatement.setString(3, tempPatient.getLname());
+                pStatement.setInt(4, tempPatient.getAge());
+                pStatement.executeUpdate();
             }
-        }
-    }
 
-    public void noElegible(String fileName) throws IOException {
-        ReadFile2 file = new ReadFile2(fileName);
-        ArrayList<String> arrLines = file.OpenFile();
-        ArrayList<String> patientFname = new ArrayList<>(arrLines.size());
-        ArrayList<String> patientLname = new ArrayList<>(arrLines.size());
-        ArrayList<Integer> patientAge = new ArrayList<>(arrLines.size());
+            PatientDao pDao = new PatientDao(connection);
+            List<Patient> list = pDao.getAll();
+            list.forEach(str -> System.out.println(str));
+            
 
-        for (int i = 0; i < arrLines.size(); i++) {
-            String singleLine = arrLines.get(i);
-            String[] moreLines = singleLine.split(",");
-
-            patientFname.add(moreLines[0]);
-            patientLname.add(moreLines[1]);
-            patientAge.add(Integer.parseInt(moreLines[2]));
-
-            if (patientAge.get(i) < 50) {
-                System.out.println(patientFname.get(i) + " " + patientLname.get(i) + " " + patientAge.get(i));
-            }
+        } catch (SQLException e) {
+            System.err.println("DATABASE connection interrupted " + e);
         }
     }
 

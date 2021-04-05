@@ -1,7 +1,6 @@
 create table patients (
-    fname text primary key, 
+    ssn text primary key,
+    fname text not null, 
     lname text not null,
-    age integer not null
+    age integer not null,
 ); 
-
-insert into patients 

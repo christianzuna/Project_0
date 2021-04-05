@@ -1,4 +1,4 @@
-<Configuration status="debug" name="sqldemo" packages="sql.demo">
+<Configuration status="debug" name="sqldemo" packages="project0">
     <Appenders>
         <Console name="stdout" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %p %m%n"/>
