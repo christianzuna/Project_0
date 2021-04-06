@@ -44,18 +44,19 @@ public class VaccineMenu {
             case 2:
                 System.out.println("");
                 System.out.println(lineBreak);
-                // PatientDao.elegibility(fileName);
+                elegibility(connection);
                 System.out.println(lineBreak);
                 break;
             case 3:
                 System.out.println("");
                 System.out.println(lineBreak);
-                // noElegible(fileName);
+                notEligible(fileName);
                 System.out.println(lineBreak);
                 break;
             case 4:
                 System.out.println("");
                 System.out.println(lineBreak);
+                
                 System.out.println(lineBreak);
                 break;
             case 5:
@@ -72,6 +73,38 @@ public class VaccineMenu {
                 break;
             }
         } while (!isOver);
+    }
+
+    private void notEligible(String fileName2) {
+        String url = "jdbc:postgresql://localhost:5432/postgres";
+        String username = "postgres";
+        String password = "password";
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            PatientDao pDao = new PatientDao(connection);
+            List<Patient> list = pDao.getNotElligible();
+
+            list.forEach(str -> System.out.println(str));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void elegibility(Connection connection2) {
+        String url = "jdbc:postgresql://localhost:5432/postgres";
+        String username = "postgres";
+        String password = "password";
+        try {
+            connection = DriverManager.getConnection(url, username, password);
+            PatientDao pDao = new PatientDao(connection);
+            List<Patient> list = pDao.getEligible();
+
+            list.forEach(str -> System.out.println(str));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void connectingDB(Connection connection, String filename) throws IOException {
@@ -109,5 +142,6 @@ public class VaccineMenu {
             System.err.println("DATABASE connection interrupted " + e);
         }
     }
+
 
 }

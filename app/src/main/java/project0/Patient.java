@@ -34,12 +34,6 @@ public class Patient {
     public void setLname(String lname) {
         this.lname = lname;
     }
-
-    @Override
-    public String toString() {
-        return fname + " " + lname + ", " + age + " -" + ssn.substring(0, 4) + "xx";
-    }
-
     public String getSsn() {
         return ssn;
     }
@@ -47,4 +41,10 @@ public class Patient {
     public void setSsn(String ssn) {
         this.ssn = ssn;
     } 
+
+    @Override
+    public String toString() {
+        return fname + " " + lname + ", " + age + " -" + ssn.substring(0, 4) + "xx";
+    }
+
 }
