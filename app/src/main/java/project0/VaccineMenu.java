@@ -25,8 +25,7 @@ public class VaccineMenu {
         System.out.println("1. To upload and see the list of names requesting a COVID vaccine ");
         System.out.println("2. See names of people who are eligible to get a COVID vaccine");
         System.out.println("3. See names of people in the waiting list for the vaccine");
-        System.out.println("4. Export list of names to get COVID vaccine");
-        System.out.println("5. Exit Menu");
+        System.out.println("4. Exit Menu");
         System.out.println(lineBreak);
 
         do {
@@ -54,12 +53,6 @@ public class VaccineMenu {
                 System.out.println(lineBreak);
                 break;
             case 4:
-                System.out.println("");
-                System.out.println(lineBreak);
-                
-                System.out.println(lineBreak);
-                break;
-            case 5:
                 System.out.println("");
                 System.out.println(lineBreak);
                 System.out.println("Finishing session..");
